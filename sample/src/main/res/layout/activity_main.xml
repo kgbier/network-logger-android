@@ -4,12 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/buttonMain"
+        android:id="@+id/buttonMakeRequest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Button Name" />
+        android:text="Make network request" />
+
+    <TextView
+        android:id="@+id/textViewStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Idle"
+        android:textAlignment="center" />
 
 </LinearLayout>
