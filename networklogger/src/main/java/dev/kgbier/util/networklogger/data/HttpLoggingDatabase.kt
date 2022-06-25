@@ -7,8 +7,8 @@ import android.database.sqlite.SQLiteOpenHelper
 import androidx.core.database.getIntOrNull
 import androidx.core.database.getLongOrNull
 import androidx.core.database.getStringOrNull
-import dev.kgbier.util.networklogger.base64.fromBase64
-import dev.kgbier.util.networklogger.base64.toBase64
+import dev.kgbier.util.networklogger.util.fromBase64
+import dev.kgbier.util.networklogger.util.toBase64
 import dev.kgbier.util.networklogger.model.HttpLogEvent
 import dev.kgbier.util.networklogger.model.HttpLogRequest
 import dev.kgbier.util.networklogger.model.HttpLogResponse

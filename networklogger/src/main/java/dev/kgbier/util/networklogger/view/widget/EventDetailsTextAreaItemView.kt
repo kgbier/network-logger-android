@@ -4,14 +4,14 @@ import android.content.Context
 import android.graphics.Typeface
 import android.util.AttributeSet
 import android.widget.HorizontalScrollView
-import androidx.appcompat.R
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.view.setPadding
 import androidx.core.widget.TextViewCompat
 import com.squareup.contour.ContourLayout
+import dev.kgbier.util.networklogger.R
 
 class EventDetailsTextAreaItemView(
-    context: Context, attrs: AttributeSet?
+    context: Context, attrs: AttributeSet?,
 ) : ContourLayout(context, attrs) {
 
     data class ViewModel(val content: String)
@@ -19,12 +19,15 @@ class EventDetailsTextAreaItemView(
     constructor(context: Context) : this(context, null)
 
     private val scrollView = HorizontalScrollView(context).apply {
-        setBackgroundResource(androidx.appcompat.R.color.background_material_light)
+        setBackgroundResource(R.color.background)
     }
 
     private val textViewContent = AppCompatTextView(context).apply {
         layoutParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
-        TextViewCompat.setTextAppearance(this, R.style.TextAppearance_AppCompat_Body1)
+        TextViewCompat.setTextAppearance(
+            this,
+            androidx.appcompat.R.style.TextAppearance_AppCompat_Body1,
+        )
         typeface = Typeface.MONOSPACE
         setPadding(16.dip)
     }.also { scrollView.addView(it) }

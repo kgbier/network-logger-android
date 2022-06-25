@@ -9,18 +9,6 @@ import dev.kgbier.util.networklogger.R
 import dev.kgbier.util.networklogger.view.widget.EventDetailsHeaderItemView
 import dev.kgbier.util.networklogger.view.widget.EventDetailsSectionTitleItemView
 import dev.kgbier.util.networklogger.view.widget.EventDetailsTextAreaItemView
-import dev.kgbier.util.networklogger.view.widget.EventDetailsToolbarItemView
-
-class EventDetailsToolbarItemViewHolder(parent: ViewGroup) :
-    EventDetailsListItemViewHolder(EventDetailsToolbarItemView(parent.context)) {
-
-    private val rootView = itemView as EventDetailsToolbarItemView
-
-    override fun bind(model: Any) {
-        if (model !is EventDetailsToolbarItemView.ViewModel) return
-        rootView.bind(model)
-    }
-}
 
 class EventDetailsHeaderItemViewHolder(parent: ViewGroup) :
     EventDetailsListItemViewHolder(EventDetailsHeaderItemView(parent.context)) {
@@ -82,7 +70,6 @@ class EventDetailsListAdapter(
         const val VIEW_TYPE_HEADER = 1
         const val VIEW_TYPE_SECTION_TITLE = 2
         const val VIEW_TYPE_TEXT_AREA = 3
-        const val VIEW_TYPE_TOOLBAR = 4
     }
 
     override fun onCreateViewHolder(
@@ -92,7 +79,6 @@ class EventDetailsListAdapter(
         VIEW_TYPE_HEADER -> EventDetailsHeaderItemViewHolder(parent)
         VIEW_TYPE_SECTION_TITLE -> EventDetailsSectionTitleItemViewHolder(parent)
         VIEW_TYPE_TEXT_AREA -> EventDetailsTextAreaItemViewHolder(parent)
-        VIEW_TYPE_TOOLBAR -> EventDetailsToolbarItemViewHolder(parent)
         else -> error("Invalid view type: $viewType")
     }
 
@@ -100,7 +86,6 @@ class EventDetailsListAdapter(
         is EventDetailsHeaderItemView.ViewModel -> VIEW_TYPE_HEADER
         is EventDetailsSectionTitleItemView.ViewModel -> VIEW_TYPE_SECTION_TITLE
         is EventDetailsTextAreaItemView.ViewModel -> VIEW_TYPE_TEXT_AREA
-        is EventDetailsToolbarItemView.ViewModel -> VIEW_TYPE_TOOLBAR
         else -> VIEW_TYPE_ERROR
     }
 

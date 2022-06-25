@@ -1,4 +1,4 @@
-package dev.kgbier.util.networklogger.base64
+package dev.kgbier.util.networklogger.util
 
 import android.util.Base64
 
