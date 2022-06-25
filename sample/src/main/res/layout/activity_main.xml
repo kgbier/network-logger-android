@@ -8,10 +8,16 @@
     tools:context=".MainActivity">
 
     <Button
+        android:id="@+id/buttonShowLogs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Network Logs" />
+
+    <Button
         android:id="@+id/buttonMakeRequest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Make network request" />
+        android:text="Make Network Request" />
 
     <TextView
         android:id="@+id/textViewStatus"
