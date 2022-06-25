@@ -5,14 +5,19 @@ import android.os.Handler
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import dev.kgbier.util.networklogger.sample.di.MainDependencyGraph
 
 class MainActivity : AppCompatActivity() {
+
+    private val di = MainDependencyGraph(this)
+
+    private val viewModel = MainViewModel(
+        okHttpClient = di.okHttpClient,
+    )
 
     private val textViewStatus by lazy {
         findViewById<TextView>(R.id.textViewStatus)
     }
-
-    private val viewModel = MainViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
