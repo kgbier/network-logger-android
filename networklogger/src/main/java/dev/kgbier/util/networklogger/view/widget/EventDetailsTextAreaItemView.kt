@@ -1,5 +1,6 @@
 package dev.kgbier.util.networklogger.view.widget
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Typeface
 import android.util.AttributeSet
@@ -10,6 +11,7 @@ import androidx.core.widget.TextViewCompat
 import com.squareup.contour.ContourLayout
 import dev.kgbier.util.networklogger.R
 
+@SuppressLint("SetTextI18n")
 class EventDetailsTextAreaItemView(
     context: Context, attrs: AttributeSet?,
 ) : ContourLayout(context, attrs) {
@@ -24,11 +26,6 @@ class EventDetailsTextAreaItemView(
 
     private val textViewContent = AppCompatTextView(context).apply {
         layoutParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
-        TextViewCompat.setTextAppearance(
-            this,
-            androidx.appcompat.R.style.TextAppearance_AppCompat_Body1,
-        )
-        typeface = Typeface.MONOSPACE
         setPadding(16.dip)
     }.also { scrollView.addView(it) }
 
@@ -58,6 +55,19 @@ class EventDetailsTextAreaItemView(
     }
 
     fun bind(model: ViewModel) = with(model) {
-        textViewContent.text = content
+        if (content.isEmpty()) {
+            textViewContent.text = "Empty"
+            TextViewCompat.setTextAppearance(
+                textViewContent,
+                androidx.appcompat.R.style.TextAppearance_AppCompat_Caption,
+            )
+        } else {
+            textViewContent.text = content
+            TextViewCompat.setTextAppearance(
+                textViewContent,
+                androidx.appcompat.R.style.TextAppearance_AppCompat_Body1,
+            )
+        }
+        textViewContent.typeface = Typeface.MONOSPACE
     }
 }
