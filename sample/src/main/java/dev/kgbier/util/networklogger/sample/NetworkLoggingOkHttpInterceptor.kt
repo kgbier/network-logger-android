@@ -36,11 +36,9 @@ class NetworkLoggingOkHttpInterceptor(
         val response = chain.proceed(request)
 
         bodyBuffer.clear()
-        response.body?.source()?.let { source ->
-            // Reading from the source directly will take it away from the downstream as well
-            source.request(Long.MAX_VALUE) // TODO: Is this needed?
-            source.buffer.copyTo(bodyBuffer)
-        }
+
+        response.body?.source()?.peek()
+            ?.readAll(bodyBuffer)
 
         loggingRepo.logResponse(
             requestTransactionId,
