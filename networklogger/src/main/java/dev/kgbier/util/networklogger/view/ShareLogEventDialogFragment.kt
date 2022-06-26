@@ -2,6 +2,7 @@ package dev.kgbier.util.networklogger.view
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,8 +17,15 @@ import androidx.core.os.bundleOf
 import androidx.core.view.setPadding
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.coroutineScope
+import androidx.lifecycle.repeatOnLifecycle
+import dev.kgbier.util.networklogger.repository.RealHttpEventLogRepository
 import dev.kgbier.util.networklogger.view.util.resolveAttribute
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 
 
 @SuppressLint("SetTextI18n")
@@ -95,8 +103,35 @@ internal class ShareLogEventDialogFragment : DialogFragment() {
         .also { bindView(it) }
         .root
 
+    private val viewModel by lazy {
+        ShareLogEventViewModel(
+            eventId = requireArguments().getString(ARG_EVENT_ID)!!,
+            repository = RealHttpEventLogRepository(requireContext()),
+            coroutineScope = viewLifecycleOwner.lifecycle.coroutineScope,
+        )
+    }
+
     private fun bindView(view: RootView) {
-        view.textViewPlainText.setOnClickListener { }
-        view.textViewCurl.setOnClickListener { }
+        viewLifecycleOwner.lifecycle.coroutineScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.event.onEach(::handleEvent).launchIn(this)
+            }
+        }
+
+        view.textViewPlainText.setOnClickListener { viewModel.sharePlainText() }
+        view.textViewCurl.setOnClickListener { viewModel.shareCurl() }
+    }
+
+    private fun handleEvent(event: ShareLogEventViewModel.Event) = when (event) {
+        is ShareLogEventViewModel.Event.ShareText -> shareText(event.text)
+    }
+
+    private fun shareText(text: String) {
+        Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, text)
+            type = "text/plain"
+        }.let { Intent.createChooser(it, null) }
+            .let { startActivity(it) }
     }
 }
