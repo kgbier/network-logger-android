@@ -1,6 +1,6 @@
 package dev.kgbier.util.networklogger.repository
 
-interface HttpLoggingRepository {
+interface NetworkLoggerRepository {
 
     fun logRequest(
         transactionId: String,

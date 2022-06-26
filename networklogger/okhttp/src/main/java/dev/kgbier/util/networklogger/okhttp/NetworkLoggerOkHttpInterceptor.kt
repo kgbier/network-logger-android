@@ -1,21 +1,18 @@
-package dev.kgbier.util.networklogger.sample
+package dev.kgbier.util.networklogger.okhttp
 
-import dev.kgbier.util.networklogger.repository.HttpLoggingRepository
-import okhttp3.Interceptor
-import okhttp3.Response
-import okio.Buffer
+import dev.kgbier.util.networklogger.repository.NetworkLoggerRepository
 import java.util.UUID
 
-class NetworkLoggingOkHttpInterceptor(
-    private val loggingRepo: HttpLoggingRepository,
-) : Interceptor {
+class NetworkLoggerOkHttpInterceptor(
+    private val loggingRepo: NetworkLoggerRepository,
+) : okhttp3.Interceptor {
 
-    override fun intercept(chain: Interceptor.Chain): Response {
+    override fun intercept(chain: okhttp3.Interceptor.Chain): okhttp3.Response {
         val request = chain.request()
 
         val requestTransactionId = UUID.randomUUID().toString()
 
-        val bodyBuffer = Buffer()
+        val bodyBuffer = okio.Buffer()
         request.body?.writeTo(bodyBuffer)
 
         loggingRepo.logRequest(

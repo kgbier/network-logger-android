@@ -5,7 +5,7 @@ import dev.kgbier.util.networklogger.data.HttpLoggingDatabase
 import dev.kgbier.util.networklogger.model.HttpLogEvent
 import dev.kgbier.util.networklogger.model.SparseHttpLogEvent
 
-internal interface HttpEventLogRepository : HttpLoggingRepository {
+internal interface HttpEventLogRepository : NetworkLoggerRepository {
     fun getEvents(): List<SparseHttpLogEvent>
     fun getEventById(id: String): HttpLogEvent
     fun clearAll()

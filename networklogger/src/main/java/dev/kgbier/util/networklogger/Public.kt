@@ -2,12 +2,12 @@ package dev.kgbier.util.networklogger
 
 import android.content.Context
 import android.content.Intent
-import dev.kgbier.util.networklogger.repository.HttpLoggingRepository
+import dev.kgbier.util.networklogger.repository.NetworkLoggerRepository
 import dev.kgbier.util.networklogger.repository.RealHttpEventLogRepository
 import dev.kgbier.util.networklogger.view.NetworkLogActivity
 
-fun HttpLoggingRepository(context: Context): HttpLoggingRepository =
+fun NetworkLoggerRepository(context: Context): NetworkLoggerRepository =
     RealHttpEventLogRepository(context)
 
-fun makeNetworkLogActivityIntent(context: Context): Intent =
+fun makeNetworkLoggerActivityIntent(context: Context): Intent =
     NetworkLogActivity.makeIntent(context)
