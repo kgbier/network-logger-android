@@ -15,7 +15,6 @@ class NetworkLoggingOkHttpInterceptor(
         "$key: $value"
     }
 
-
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
 

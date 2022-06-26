@@ -27,7 +27,6 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
-
 @SuppressLint("SetTextI18n")
 internal class ShareLogEventDialogFragment : DialogFragment() {
 
