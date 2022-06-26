@@ -1,7 +1,7 @@
 package dev.kgbier.util.networklogger.sample.di
 
 import android.content.Context
-import dev.kgbier.util.networklogger.repository.RealHttpLoggingRepository
+import dev.kgbier.util.networklogger.HttpLoggingRepository
 import dev.kgbier.util.networklogger.sample.NetworkLoggingOkHttpInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -10,7 +10,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 class MainDependencyGraph(val context: Context) {
 
     val httpLoggingRepository by lazy {
-        RealHttpLoggingRepository(context)
+        HttpLoggingRepository(context)
     }
 
     val networkLoggingOkHttpInterceptor by lazy {

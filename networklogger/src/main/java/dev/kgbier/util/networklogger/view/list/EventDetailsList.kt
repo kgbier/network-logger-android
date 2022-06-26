@@ -10,7 +10,7 @@ import dev.kgbier.util.networklogger.view.widget.EventDetailsHeaderItemView
 import dev.kgbier.util.networklogger.view.widget.EventDetailsSectionTitleItemView
 import dev.kgbier.util.networklogger.view.widget.EventDetailsTextAreaItemView
 
-class EventDetailsHeaderItemViewHolder(parent: ViewGroup) :
+internal class EventDetailsHeaderItemViewHolder(parent: ViewGroup) :
     EventDetailsListItemViewHolder(EventDetailsHeaderItemView(parent.context)) {
 
     private val rootView = itemView as EventDetailsHeaderItemView
@@ -26,7 +26,7 @@ class EventDetailsHeaderItemViewHolder(parent: ViewGroup) :
     }
 }
 
-class EventDetailsSectionTitleItemViewHolder(parent: ViewGroup) :
+internal class EventDetailsSectionTitleItemViewHolder(parent: ViewGroup) :
     EventDetailsListItemViewHolder(EventDetailsSectionTitleItemView(parent.context)) {
     private val rootView = itemView as EventDetailsSectionTitleItemView
 
@@ -47,7 +47,7 @@ class EventDetailsSectionTitleItemViewHolder(parent: ViewGroup) :
     }
 }
 
-class EventDetailsTextAreaItemViewHolder(parent: ViewGroup) :
+internal class EventDetailsTextAreaItemViewHolder(parent: ViewGroup) :
     EventDetailsListItemViewHolder(EventDetailsTextAreaItemView(parent.context)) {
     private val rootView = itemView as EventDetailsTextAreaItemView
 
@@ -57,11 +57,11 @@ class EventDetailsTextAreaItemViewHolder(parent: ViewGroup) :
     }
 }
 
-abstract class EventDetailsListItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+internal abstract class EventDetailsListItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     abstract fun bind(model: Any)
 }
 
-class EventDetailsListAdapter(
+internal class EventDetailsListAdapter(
     private val items: List<Any>,
 ) : RecyclerView.Adapter<EventDetailsListItemViewHolder>() {
 

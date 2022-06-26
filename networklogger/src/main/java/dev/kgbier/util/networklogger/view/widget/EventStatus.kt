@@ -7,14 +7,14 @@ import dev.kgbier.util.networklogger.view.colour.GREEN_500
 import dev.kgbier.util.networklogger.view.colour.RED_500
 import dev.kgbier.util.networklogger.view.colour.YELLOW_500
 
-enum class EventStatus {
+internal enum class EventStatus {
     OK,
     INFO,
     INDETERMINATE,
     ERROR,
 }
 
-class EventStatusIndicatorDrawable : ShapeDrawable() {
+internal class EventStatusIndicatorDrawable : ShapeDrawable() {
 
     init {
         shape = OvalShape()

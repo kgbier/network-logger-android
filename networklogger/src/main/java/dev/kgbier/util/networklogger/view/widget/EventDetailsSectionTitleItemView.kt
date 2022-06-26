@@ -7,7 +7,7 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.widget.TextViewCompat
 import com.squareup.contour.ContourLayout
 
-class EventDetailsSectionTitleItemView(
+internal class EventDetailsSectionTitleItemView(
     context: Context, attrs: AttributeSet?,
 ) : ContourLayout(context, attrs) {
 

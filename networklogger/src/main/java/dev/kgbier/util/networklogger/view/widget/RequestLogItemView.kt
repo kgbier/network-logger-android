@@ -14,7 +14,7 @@ import androidx.core.widget.TextViewCompat
 import com.squareup.contour.ContourLayout
 import dev.kgbier.util.networklogger.view.util.resolveAttribute
 
-class RequestLogItemView(
+internal class RequestLogItemView(
     context: Context, attrs: AttributeSet?,
 ) : ContourLayout(context, attrs) {
 

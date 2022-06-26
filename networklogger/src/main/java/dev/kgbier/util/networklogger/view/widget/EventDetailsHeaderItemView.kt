@@ -8,7 +8,7 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.widget.TextViewCompat
 import com.squareup.contour.ContourLayout
 
-class EventDetailsHeaderItemView(
+internal class EventDetailsHeaderItemView(
     context: Context, attrs: AttributeSet?
 ) : ContourLayout(context, attrs) {
 

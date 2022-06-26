@@ -1,6 +1,7 @@
 package dev.kgbier.util.networklogger.view
 
 import dev.kgbier.util.networklogger.model.SparseHttpLogEvent
+import dev.kgbier.util.networklogger.repository.HttpEventLogRepository
 import dev.kgbier.util.networklogger.repository.HttpLoggingRepository
 import dev.kgbier.util.networklogger.util.statusCodeToStatus
 import dev.kgbier.util.networklogger.util.timestampDistanceFromNow
@@ -12,8 +13,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.withContext
 import java.net.URI
 
-class NetworkLogViewModel(
-    private val repository: HttpLoggingRepository,
+internal class NetworkLogViewModel(
+    private val repository: HttpEventLogRepository,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
     private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Default,
 ) {

@@ -12,7 +12,7 @@ import com.squareup.contour.ContourLayout
 import dev.kgbier.util.networklogger.R
 
 @SuppressLint("SetTextI18n")
-class EventDetailsTextAreaItemView(
+internal class EventDetailsTextAreaItemView(
     context: Context, attrs: AttributeSet?,
 ) : ContourLayout(context, attrs) {
 

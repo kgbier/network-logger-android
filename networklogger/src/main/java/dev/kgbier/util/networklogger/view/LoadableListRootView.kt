@@ -7,7 +7,7 @@ import android.widget.ProgressBar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class LoadableListRootView(context: Context) {
+internal class LoadableListRootView(context: Context) {
     val root: FrameLayout
     val progressBar: ProgressBar
     val recyclerView: RecyclerView

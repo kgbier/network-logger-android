@@ -5,8 +5,8 @@ import android.os.Handler
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import dev.kgbier.util.networklogger.makeNetworkLogActivityIntent
 import dev.kgbier.util.networklogger.sample.di.MainDependencyGraph
-import dev.kgbier.util.networklogger.view.NetworkLogActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         findViewById<Button>(R.id.buttonShowLogs).setOnClickListener {
-            startActivity(NetworkLogActivity.makeIntent(this))
+            startActivity(makeNetworkLogActivityIntent(this))
         }
 
         findViewById<Button>(R.id.buttonMakeRequest).setOnClickListener {

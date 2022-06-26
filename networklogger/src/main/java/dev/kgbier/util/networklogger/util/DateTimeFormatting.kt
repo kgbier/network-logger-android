@@ -4,13 +4,13 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.concurrent.TimeUnit
 
-fun timestampDistanceFromNow(timestamp: Long): String =
+internal fun timestampDistanceFromNow(timestamp: Long): String =
     getTimeBetween(Date(), Date(timestamp))
 
-fun timestampDistanceBetween(timestampFrom: Long, timestampTo: Long): String =
+internal fun timestampDistanceBetween(timestampFrom: Long, timestampTo: Long): String =
     getTimeBetween(Date(timestampFrom), Date(timestampTo))
 
-fun getTimeBetween(from: Date, to: Date): String {
+internal fun getTimeBetween(from: Date, to: Date): String {
     val diff = from.time - to.time
 
     val secsAgo = TimeUnit.MILLISECONDS.toSeconds(diff)

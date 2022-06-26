@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import dev.kgbier.util.networklogger.R
 import dev.kgbier.util.networklogger.view.widget.RequestLogItemView
 
-class RequestLogListAdapter(
+internal class RequestLogListAdapter(
     private val events: List<RequestLogItemView.ViewModel>,
     private val onClickItem: (id: String) -> Unit,
 ) : RecyclerView.Adapter<RequestLogListItemViewHolder>() {
@@ -25,7 +25,7 @@ class RequestLogListAdapter(
     override fun getItemCount(): Int = events.size
 }
 
-class RequestLogListItemViewHolder(parent: ViewGroup) :
+internal class RequestLogListItemViewHolder(parent: ViewGroup) :
     RecyclerView.ViewHolder(RequestLogItemView(parent.context)) {
     val rootView: RequestLogItemView = itemView as RequestLogItemView
 

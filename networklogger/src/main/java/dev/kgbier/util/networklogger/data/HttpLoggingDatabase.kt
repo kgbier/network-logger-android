@@ -15,7 +15,7 @@ import dev.kgbier.util.networklogger.model.HttpLogResponse
 import dev.kgbier.util.networklogger.model.HttpLogTransaction
 import dev.kgbier.util.networklogger.model.SparseHttpLogEvent
 
-class HttpLoggingDatabase(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {
+internal class HttpLoggingDatabase(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {
 
     companion object {
         private const val DB_NAME = "dev_http_log.db"

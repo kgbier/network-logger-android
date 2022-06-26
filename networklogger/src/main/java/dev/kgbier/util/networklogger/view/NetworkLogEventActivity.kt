@@ -3,17 +3,20 @@ package dev.kgbier.util.networklogger.view
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.repeatOnLifecycle
-import dev.kgbier.util.networklogger.repository.RealHttpLoggingRepository
+import dev.kgbier.util.networklogger.R
+import dev.kgbier.util.networklogger.repository.RealHttpEventLogRepository
 import dev.kgbier.util.networklogger.view.list.EventDetailsListAdapter
 import kotlinx.coroutines.launch
 
-class NetworkLogEventActivity : AppCompatActivity() {
+internal class NetworkLogEventActivity : AppCompatActivity() {
 
     companion object {
         private const val ARG_EVENT_ID = "arg_event_id"
@@ -30,7 +33,7 @@ class NetworkLogEventActivity : AppCompatActivity() {
     private val viewModel by lazy {
         NetworkLogEventViewModel(
             eventId = intent.getStringExtra(ARG_EVENT_ID) ?: "",
-            repository = RealHttpLoggingRepository(this),
+            repository = RealHttpEventLogRepository(this),
         )
     }
 
@@ -57,5 +60,23 @@ class NetworkLogEventActivity : AppCompatActivity() {
             view.progressBar.isVisible = true
             view.recyclerView.isGone = true
         }
+    }
+
+    private lateinit var menuItemShare: MenuItem
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuItemShare = menu.add("Share").apply {
+            setIcon(R.drawable.ic_share_24)
+            setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+        }
+
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        menuItemShare.itemId -> {
+            viewModel.showShare()
+            true
+        }
+        else -> false
     }
 }

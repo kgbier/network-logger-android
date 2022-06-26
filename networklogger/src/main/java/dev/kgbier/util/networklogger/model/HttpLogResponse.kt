@@ -1,6 +1,6 @@
 package dev.kgbier.util.networklogger.model
 
-data class HttpLogResponse(
+internal data class HttpLogResponse(
     val transactionId: String,
     val statusCode: Int,
     val headers: String,

@@ -5,9 +5,11 @@
     <application>
         <activity
             android:name=".view.NetworkLogActivity"
+            android:label="Logs"
             android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" />
         <activity
             android:name=".view.NetworkLogEventActivity"
+            android:label="Event"
             android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" />
     </application>
 

@@ -1,6 +1,7 @@
 package dev.kgbier.util.networklogger.view
 
 import dev.kgbier.util.networklogger.model.HttpLogEvent
+import dev.kgbier.util.networklogger.repository.HttpEventLogRepository
 import dev.kgbier.util.networklogger.repository.HttpLoggingRepository
 import dev.kgbier.util.networklogger.util.statusCodeToStatus
 import dev.kgbier.util.networklogger.util.timestampDistanceFromNow
@@ -14,9 +15,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.withContext
 import java.net.URI
 
-class NetworkLogEventViewModel(
+internal class NetworkLogEventViewModel(
     private val eventId: String,
-    private val repository: HttpLoggingRepository,
+    private val repository: HttpEventLogRepository,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
     private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Default,
 ) {
@@ -38,6 +39,8 @@ class NetworkLogEventViewModel(
         }
         _state.value = State.Event(event.toItemList())
     }
+
+    fun showShare() {}
 
     private fun HttpLogEvent.toItemList() = mutableListOf<Any>().apply {
         val uri = URI.create(transaction.url)

@@ -2,7 +2,7 @@ package dev.kgbier.util.networklogger.util
 
 import dev.kgbier.util.networklogger.view.widget.EventStatus
 
-fun statusCodeToStatus(statusCode: Int?): EventStatus = when (statusCode) {
+internal fun statusCodeToStatus(statusCode: Int?): EventStatus = when (statusCode) {
     null,
     in 100..199,
     -> EventStatus.INFO
