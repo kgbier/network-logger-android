@@ -14,6 +14,8 @@ import androidx.lifecycle.repeatOnLifecycle
 import dev.kgbier.util.networklogger.R
 import dev.kgbier.util.networklogger.repository.RealHttpEventLogRepository
 import dev.kgbier.util.networklogger.view.list.RequestLogListAdapter
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 internal class NetworkLogActivity : AppCompatActivity() {
@@ -25,6 +27,7 @@ internal class NetworkLogActivity : AppCompatActivity() {
     private val view by lazy { LoadableListRootView(this) }
     private val viewModel = NetworkLogViewModel(
         repository = RealHttpEventLogRepository(this),
+        coroutineScope = lifecycle.coroutineScope,
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,8 +37,8 @@ internal class NetworkLogActivity : AppCompatActivity() {
 
         lifecycle.coroutineScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.state.onEach(::renderState).launchIn(this)
                 viewModel.loadLogs()
-                viewModel.state.collect(::renderState)
             }
         }
     }

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
@@ -14,6 +15,8 @@ import androidx.lifecycle.repeatOnLifecycle
 import dev.kgbier.util.networklogger.R
 import dev.kgbier.util.networklogger.repository.RealHttpEventLogRepository
 import dev.kgbier.util.networklogger.view.list.EventDetailsListAdapter
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 internal class NetworkLogEventActivity : AppCompatActivity() {
@@ -34,6 +37,7 @@ internal class NetworkLogEventActivity : AppCompatActivity() {
         NetworkLogEventViewModel(
             eventId = intent.getStringExtra(ARG_EVENT_ID) ?: "",
             repository = RealHttpEventLogRepository(this),
+            coroutineScope = lifecycle.coroutineScope,
         )
     }
 
@@ -43,9 +47,16 @@ internal class NetworkLogEventActivity : AppCompatActivity() {
 
         lifecycle.coroutineScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.state.onEach(::renderState).launchIn(this)
+                viewModel.event.onEach(::handleEvent).launchIn(this)
                 viewModel.loadEvent()
-                viewModel.state.collect(::renderState)
             }
+        }
+    }
+
+    private fun handleEvent(event: NetworkLogEventViewModel.Event) = when (event) {
+        is NetworkLogEventViewModel.Event.ShowShare -> {
+            Toast.makeText(this, "share", Toast.LENGTH_SHORT).show()
         }
     }
 

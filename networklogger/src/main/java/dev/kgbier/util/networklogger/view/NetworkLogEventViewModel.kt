@@ -1,5 +1,6 @@
 package dev.kgbier.util.networklogger.view
 
+import androidx.lifecycle.LifecycleCoroutineScope
 import dev.kgbier.util.networklogger.model.HttpLogEvent
 import dev.kgbier.util.networklogger.repository.HttpEventLogRepository
 import dev.kgbier.util.networklogger.util.prettyPrintJsonString
@@ -11,20 +12,26 @@ import dev.kgbier.util.networklogger.view.widget.EventDetailsTextAreaItemView
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.net.URI
 
 internal class NetworkLogEventViewModel(
     private val eventId: String,
     private val repository: HttpEventLogRepository,
+    private val coroutineScope: LifecycleCoroutineScope,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
-    private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Default,
 ) {
 
-    private val _state = MutableStateFlow<State>(State.Idle)
+    sealed interface Event {
+        data class ShowShare(val eventId: String) : Event
+    }
 
-    val state: Flow<State> get() = _state
+    private val _event = MutableSharedFlow<Event>()
+    val event: Flow<Event>
+        get() = _event
 
     sealed interface State {
         object Idle : State
@@ -32,7 +39,10 @@ internal class NetworkLogEventViewModel(
         data class Event(val listItems: List<Any>) : State
     }
 
-    suspend fun loadEvent() = withContext(defaultDispatcher) {
+    private val _state = MutableStateFlow<State>(State.Idle)
+    val state: Flow<State> get() = _state
+
+    fun loadEvent() = coroutineScope.launch {
         _state.value = State.Loading
         val event = withContext(ioDispatcher) {
             repository.getEventById(eventId)
@@ -40,7 +50,9 @@ internal class NetworkLogEventViewModel(
         _state.value = State.Event(event.toItemList())
     }
 
-    fun showShare() {}
+    fun showShare() = coroutineScope.launch {
+        _event.emit(Event.ShowShare(eventId))
+    }
 
     private fun HttpLogEvent.toItemList() = mutableListOf<Any>().apply {
         val uri = URI.create(transaction.url)
