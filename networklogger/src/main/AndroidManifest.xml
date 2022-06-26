@@ -6,11 +6,11 @@
         <activity
             android:name=".view.NetworkLogActivity"
             android:label="Logs"
-            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
         <activity
             android:name=".view.NetworkLogEventActivity"
             android:label="Event"
-            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
     </application>
 
 </manifest>

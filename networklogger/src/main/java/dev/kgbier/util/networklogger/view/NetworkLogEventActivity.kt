@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
@@ -55,9 +54,9 @@ internal class NetworkLogEventActivity : AppCompatActivity() {
     }
 
     private fun handleEvent(event: NetworkLogEventViewModel.Event) = when (event) {
-        is NetworkLogEventViewModel.Event.ShowShare -> {
-            Toast.makeText(this, "share", Toast.LENGTH_SHORT).show()
-        }
+        is NetworkLogEventViewModel.Event.ShowShare -> ShareLogEventDialogFragment
+            .newInstance(event.eventId)
+            .show(supportFragmentManager, ShareLogEventDialogFragment.TAG)
     }
 
     private fun renderState(state: NetworkLogEventViewModel.State) = when (state) {
