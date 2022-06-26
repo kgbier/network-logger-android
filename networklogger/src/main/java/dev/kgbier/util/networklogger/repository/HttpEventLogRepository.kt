@@ -23,18 +23,36 @@ internal class RealHttpEventLogRepository(private val context: Context) : HttpEv
         transactionId: String,
         url: String,
         method: String,
-        headers: String,
+        headers: List<Pair<String, String>>,
         body: String,
         timestamp: Long,
-    ) = db.writer.logRequest(transactionId, url, method, headers, body, timestamp)
+    ) = db.writer.logRequest(
+        transactionId = transactionId,
+        url = url,
+        method = method,
+        headers = headers.toBlock(),
+        body = body,
+        timestamp = timestamp,
+    )
 
     override fun logResponse(
         transactionId: String,
         statusCode: Int,
-        headers: String,
+        headers: List<Pair<String, String>>,
         body: String,
         timestamp: Long,
-    ) = db.writer.logResponse(transactionId, statusCode, headers, body, timestamp)
+    ) = db.writer.logResponse(
+        transactionId = transactionId,
+        statusCode = statusCode,
+        headers = headers.toBlock(),
+        body = body,
+        timestamp = timestamp,
+    )
 
     override fun clearAll() = db.clearDatabase()
+
+    private fun List<Pair<String, String>>.toBlock() =
+        joinToString("\n") { (key, value) ->
+            "$key: $value"
+        }
 }

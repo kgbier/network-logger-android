@@ -1,7 +1,6 @@
 package dev.kgbier.util.networklogger.sample
 
 import dev.kgbier.util.networklogger.repository.HttpLoggingRepository
-import okhttp3.Headers
 import okhttp3.Interceptor
 import okhttp3.Response
 import okio.Buffer
@@ -10,10 +9,6 @@ import java.util.UUID
 class NetworkLoggingOkHttpInterceptor(
     private val loggingRepo: HttpLoggingRepository,
 ) : Interceptor {
-
-    private fun Headers.toBlock() = joinToString("\n") { (key, value) ->
-        "$key: $value"
-    }
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
@@ -24,12 +19,12 @@ class NetworkLoggingOkHttpInterceptor(
         request.body?.writeTo(bodyBuffer)
 
         loggingRepo.logRequest(
-            requestTransactionId,
-            request.url.toString(),
-            request.method,
-            request.headers.toBlock(),
-            bodyBuffer.readString(Charsets.UTF_8),
-            System.currentTimeMillis(),
+            transactionId = requestTransactionId,
+            url = request.url.toString(),
+            method = request.method,
+            headers = request.headers.toList(),
+            body = bodyBuffer.readString(Charsets.UTF_8),
+            timestamp = System.currentTimeMillis(),
         )
 
         val response = chain.proceed(request)
@@ -40,11 +35,11 @@ class NetworkLoggingOkHttpInterceptor(
             ?.readAll(bodyBuffer)
 
         loggingRepo.logResponse(
-            requestTransactionId,
-            response.code,
-            response.headers.toBlock(),
-            bodyBuffer.readString(Charsets.UTF_8),
-            System.currentTimeMillis(),
+            transactionId = requestTransactionId,
+            statusCode = response.code,
+            headers = response.headers.toList(),
+            body = bodyBuffer.readString(Charsets.UTF_8),
+            timestamp = System.currentTimeMillis(),
         )
 
         return response

@@ -6,7 +6,7 @@ interface HttpLoggingRepository {
         transactionId: String,
         url: String,
         method: String,
-        headers: String,
+        headers: List<Pair<String, String>>,
         body: String,
         timestamp: Long,
     )
@@ -14,7 +14,7 @@ interface HttpLoggingRepository {
     fun logResponse(
         transactionId: String,
         statusCode: Int,
-        headers: String,
+        headers: List<Pair<String, String>>,
         body: String,
         timestamp: Long,
     )
