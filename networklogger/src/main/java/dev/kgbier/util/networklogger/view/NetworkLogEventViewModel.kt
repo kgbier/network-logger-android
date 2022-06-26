@@ -2,7 +2,7 @@ package dev.kgbier.util.networklogger.view
 
 import dev.kgbier.util.networklogger.model.HttpLogEvent
 import dev.kgbier.util.networklogger.repository.HttpEventLogRepository
-import dev.kgbier.util.networklogger.repository.HttpLoggingRepository
+import dev.kgbier.util.networklogger.util.prettyPrintJsonString
 import dev.kgbier.util.networklogger.util.statusCodeToStatus
 import dev.kgbier.util.networklogger.util.timestampDistanceFromNow
 import dev.kgbier.util.networklogger.view.widget.EventDetailsHeaderItemView
@@ -57,6 +57,7 @@ internal class NetworkLogEventViewModel(
                 )
             },
         ))
+
         add(EventDetailsSectionTitleItemView.ViewModel("Request headers"))
         add(EventDetailsTextAreaItemView.ViewModel(request.headers))
         uri.query?.let {
@@ -64,13 +65,13 @@ internal class NetworkLogEventViewModel(
             add(EventDetailsTextAreaItemView.ViewModel(it))
         }
         add(EventDetailsSectionTitleItemView.ViewModel("Request Body"))
-        add(EventDetailsTextAreaItemView.ViewModel(request.body))
+        add(EventDetailsTextAreaItemView.ViewModel(prettyPrintJsonString(request.body)))
 
         response?.let {
             add(EventDetailsSectionTitleItemView.ViewModel("Response headers"))
             add(EventDetailsTextAreaItemView.ViewModel(it.headers))
             add(EventDetailsSectionTitleItemView.ViewModel("Response Body"))
-            add(EventDetailsTextAreaItemView.ViewModel(it.body))
+            add(EventDetailsTextAreaItemView.ViewModel(prettyPrintJsonString(it.body)))
         }
     }
 }
