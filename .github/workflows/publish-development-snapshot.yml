@@ -1,10 +1,9 @@
-name: Android CI
+name: Publish Development Snapshot
 
 on:
   push:
-    branches: [ "main", "publish" ]
-  pull_request:
-    branches: [ "main" ]
+    branches:
+    - main
 
 jobs:
   publish:
