@@ -2,7 +2,6 @@ name: Verify
 
 on:
   pull_request:
-  - main
 
 jobs:
   verify:
@@ -10,14 +9,15 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: set up JDK 11
+    - name: Setup JDK 11
       uses: actions/setup-java@v3
       with:
         java-version: '11'
         distribution: 'temurin'
         cache: gradle
 
-    - name: Setup Gradle and Build
+    - name: Setup gradle
       uses: gradle/gradle-build-action@v2
-      with:
-        arguments: build
+
+    - name: Build and verify
+      run: ./gradlew build
