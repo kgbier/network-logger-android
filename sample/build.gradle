@@ -15,6 +15,15 @@ android {
     }
 }
 
+// The sample app doesn't need a release variant
+import com.android.builder.core.BuilderConstants
+android.variantFilter { variant ->
+    def build = variant.buildType.name
+    if (build == BuilderConstants.RELEASE) {
+        variant.setIgnore(true)
+    }
+}
+
 dependencies {
 
     implementation project(path: ':networklogger:okhttp')
