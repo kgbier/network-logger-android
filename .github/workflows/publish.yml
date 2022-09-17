@@ -1,9 +1,12 @@
 name: Publish
 
 on:
-  release:
-    types:
-    - released
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version name'
+        required: true 
+        type: string
 
 jobs:
   publish:
@@ -21,7 +24,7 @@ jobs:
         cache: gradle
 
     - name: Rewrite release version for publishing
-      run: ./scripts/rewrite-version.sh $GITHUB_REF
+      run: ./scripts/rewrite-version.sh ${{ inputs.version }}
 
     - name: Setup Gradle and Publish
       uses: gradle/gradle-build-action@v2

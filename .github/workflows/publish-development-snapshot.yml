@@ -6,7 +6,7 @@ on:
     - main
 
 jobs:
-  publish:
+  publish-snapshot:
     if: github.repository == 'kgbier/network-logger-android'
     runs-on: ubuntu-latest
     environment: publish
