@@ -30,7 +30,7 @@ jobs:
       uses: gradle/gradle-build-action@v2
 
     - name: Publish release
-      run: ./gradlew tasks # publish
+      run: ./gradlew publish
       env:
         ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.SONATYPE_NEXUS_USERNAME }}
         ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.SONATYPE_NEXUS_PASSWORD }}
