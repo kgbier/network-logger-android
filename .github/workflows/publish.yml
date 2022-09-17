@@ -3,12 +3,11 @@ name: Publish
 on:
   release:
     types:
-    - created # Temporary, for testing
     - released
 
 jobs:
   publish:
-    if: github.repository == 'kgbier/network-logger-android' && github.ref == 'refs/heads/main'
+    if: github.repository == 'kgbier/network-logger-android'
     runs-on: ubuntu-latest
     environment: publish
 
