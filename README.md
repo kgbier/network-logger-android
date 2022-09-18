@@ -12,6 +12,9 @@ A lightweight utility for capturing network traffic in Android apps.
 - Identify failed or unexpected responses
 - Share and export individual requests via the clipboard
   - Additionally export as a `cURL` command
+- Comes with batteries-included for:
+  - Ktor
+  - OkHttp
 
 ## Example
 A sample Android app is included under `./sample`.
@@ -21,19 +24,17 @@ A sample Android app is included under `./sample`.
 The latest release is available on Maven Central.
 ``` groovy
 dependencies {
-  implementation 'dev.kgbier.util:networklogger:1.0'
+  implementation 'dev.kgbier.util:networklogger:1.1'
 }
 ```
 Snapshot builds are [available](https://s01.oss.sonatype.org/content/repositories/snapshots/).
 
 ### OkHttp
 
-Comes with batteries-included. 
-
 1. Depend on the `okhttp` flavour of this library:
 ``` groovy
 dependencies {
-  implementation 'dev.kgbier.util:networklogger-okhttp:1.0'
+  implementation 'dev.kgbier.util:networklogger-okhttp:1.1'
 }
 ```
 
@@ -42,6 +43,27 @@ dependencies {
 OkHttpClient.Builder()
     .addInterceptor(NetworkLoggerOkHttpInterceptor(applicationContext))
     .build()
+```
+
+3. View logs by starting the included activity:
+```kotlin
+startActivity(makeNetworkLoggerActivityIntent(context))
+```
+
+### Ktor
+
+1. Depend on the `ktor` flavour of this library:
+``` groovy
+dependencies {
+  implementation 'dev.kgbier.util:networklogger-ktor:1.1'
+}
+```
+
+2. Add the `NetworkLoggerKtorPluginInstaller` to your Ktor client:
+```kotlin
+HttpClient(CIO) {
+  install(NetworkLoggerKtorPluginInstaller(applicationContext))
+}
 ```
 
 3. View logs by starting the included activity:

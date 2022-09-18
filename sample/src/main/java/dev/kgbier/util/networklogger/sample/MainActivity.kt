@@ -14,6 +14,7 @@ class MainActivity : AppCompatActivity() {
 
     private val viewModel = MainViewModel(
         okHttpClient = di.okHttpClient,
+        ktorHttpClient = di.ktorHttpClient,
     )
 
     private val textViewStatus by lazy {
@@ -28,14 +29,27 @@ class MainActivity : AppCompatActivity() {
             startActivity(makeNetworkLoggerActivityIntent(this))
         }
 
-        findViewById<Button>(R.id.buttonMakeRequest).setOnClickListener {
-            viewModel.makeRequest(
-                onStart = { runOnMain { textViewStatus.text = "Loading" } },
-                onSuccess = { runOnMain { textViewStatus.text = "Success!" } },
-                onError = { runOnMain { textViewStatus.text = "Failed: ${it.message}" } },
+        findViewById<Button>(R.id.buttonMakeRequestKtor).setOnClickListener {
+            viewModel.makeRequestKtor(
+                onStart = ::handleOnStart,
+                onSuccess = ::handleOnSuccess,
+                onError = ::handleOnError,
+            )
+        }
+
+        findViewById<Button>(R.id.buttonMakeRequestOkHttp).setOnClickListener {
+            viewModel.makeRequestOkHttp(
+                onStart = ::handleOnStart,
+                onSuccess = ::handleOnSuccess,
+                onError = ::handleOnError,
             )
         }
     }
+
+    private fun handleOnStart() = runOnMain { textViewStatus.text = "Loading" }
+    private fun handleOnSuccess() = runOnMain { textViewStatus.text = "Success!" }
+    private fun handleOnError(error: Throwable) =
+        runOnMain { textViewStatus.text = "Failed: ${error.message}" }
 
     private val mainThread by lazy { Handler(mainLooper) }
 

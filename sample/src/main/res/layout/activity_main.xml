@@ -14,10 +14,16 @@
         android:text="Show Network Logs" />
 
     <Button
-        android:id="@+id/buttonMakeRequest"
+        android:id="@+id/buttonMakeRequestKtor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Make Network Request" />
+        android:text="Make Ktor Request" />
+
+    <Button
+        android:id="@+id/buttonMakeRequestOkHttp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Make OkHttp Request" />
 
     <TextView
         android:id="@+id/textViewStatus"

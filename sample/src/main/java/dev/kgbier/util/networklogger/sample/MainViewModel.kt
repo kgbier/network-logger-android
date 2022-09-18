@@ -1,17 +1,21 @@
 package dev.kgbier.util.networklogger.sample
 
-import okhttp3.Call
-import okhttp3.Callback
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.Response
+import android.util.Log
+import io.ktor.client.*
+import io.ktor.client.request.*
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import okhttp3.*
 import java.io.IOException
 
 class MainViewModel(
     private val okHttpClient: OkHttpClient,
+    private val ktorHttpClient: HttpClient,
 ) {
 
-    fun makeRequest(
+    fun makeRequestOkHttp(
         onStart: () -> Unit,
         onSuccess: () -> Unit,
         onError: (error: Throwable) -> Unit,
@@ -27,5 +31,20 @@ class MainViewModel(
             override fun onResponse(call: Call, response: Response) = onSuccess()
             override fun onFailure(call: Call, e: IOException) = onError(e)
         })
+    }
+
+    fun makeRequestKtor(
+        onStart: () -> Unit,
+        onSuccess: () -> Unit,
+        onError: (error: Throwable) -> Unit,
+    ) {
+        onStart()
+
+        @OptIn(DelicateCoroutinesApi::class)
+        GlobalScope.launch {
+            runCatching { ktorHttpClient.request("https://swapi.dev/api/people/1") }
+                .onSuccess { onSuccess() }
+                .onFailure { onError(it) }
+        }
     }
 }
