@@ -4,6 +4,7 @@ plugins {
 }
 
 android {
+    namespace 'dev.kgbier.util.networklogger.sample'
     compileSdk 32
 
     defaultConfig {

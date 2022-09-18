@@ -5,6 +5,7 @@ plugins {
 }
 
 android {
+    namespace 'dev.kgbier.util.networklogger.okhttp'
     compileSdk 32
 
     defaultConfig {

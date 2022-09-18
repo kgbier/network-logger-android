@@ -5,6 +5,7 @@ plugins {
 }
 
 android {
+    namespace 'dev.kgbier.util.networklogger.ktor'
     compileSdk 32
 
     defaultConfig {
