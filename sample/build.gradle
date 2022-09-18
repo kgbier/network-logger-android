@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace 'dev.kgbier.util.networklogger.sample'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "dev.kgbier.util.networklogger.sample"
         minSdk 21
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
     }
@@ -37,6 +37,6 @@ dependencies {
     implementation 'io.ktor:ktor-client-cio:2.0.3'
     implementation 'io.ktor:ktor-client-logging:2.0.3'
 
-    implementation 'androidx.core:core-ktx:1.8.0'
-    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
 }
