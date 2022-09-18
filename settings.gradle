@@ -18,3 +18,4 @@ rootProject.name = "networklogger"
 include ':sample'
 include ':networklogger'
 include ':networklogger:okhttp'
+include ':networklogger:ktor'
